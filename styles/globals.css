@@ -1,0 +1,161 @@
+html,
+body {
+  color: rgb(255, 185, 45);
+  background-color: #2c0000;
+  padding: 0;
+  padding-top: 77px;
+  margin: 0;
+  background-image: url('/background.png');
+  background-repeat: no-repeat;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: inherit;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.navbar-container {
+  width: 90%;
+}
+
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  border-radius: .3rem;
+  height: 300px;
+}
+
+.navbar-bg-color {
+  background-color: #410500;
+}
+
+.transition {
+  color: floralwhite;
+  transition: 0.3s;
+}
+
+.transition:hover {
+  color: rgb(255, 185, 45);
+}
+
+.header-transition {
+  opacity: 0.7;
+  transition: 0.2s;
+}
+
+.header-transition:hover {
+  opacity: 1;
+}
+
+.image-hov {
+  border: 3px solid white;
+  transition: 0.2s;
+}
+
+.image-hov:hover {
+  border: 3px solid rgb(255, 170, 0);
+}
+
+.floralwhite-text {
+  color: floralwhite;
+}
+
+.custom-radio-button-ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.custom-radio-button-li {
+  display: inline-block;
+}
+
+.custom-radio {
+  visibility:hidden;
+  transition: 0.3s;
+}
+
+.custom-label {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.custom-radio:checked + label  {
+  background: rgb(255, 170, 0);
+  color: black;
+  transition: 0.3s;
+  padding: 5px;
+}
+
+.page-listing {
+  list-style-type: none;
+  display: inline-flex;
+}
+
+.disabled-arrow {
+  opacity: 0.5;
+}
+
+.enabled-arrow:hover {
+  fill: rgb(255, 185, 45);;
+  cursor: pointer;
+}
+
+.arrow {
+  margin-left: 10px;
+  margin-right: 10px;
+  display:inline;
+  mix-blend-mode:normal;
+  fill:floralwhite;
+  fill-opacity:1;
+  fill-rule:evenodd;
+  stroke:none;
+  stroke-width:0.0352777;
+  transition: 0.2s;
+}
+
+.vertical-center {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.pages {
+  min-width: 150px;
+  color: rgb(255, 185, 45);
+}
+
+.disable-outline {
+  outline:0px !important;
+  -webkit-appearance:none;
+  box-shadow: none !important;
+}
+
+.big-text {
+  font-size: 50px;
+}
+
+.gap {
+  gap: 10px 10px;
+}
+
+.loading {
+  min-height: 2000px;
+}
+
+.loading-movie {
+  min-height: 1000px;
+}
+
+.image-cover {
+  object-fit: cover;
+}
