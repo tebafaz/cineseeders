@@ -19,6 +19,5 @@ export default async (req, res) => {
     }).join('')
     query = query.slice(0, -1)
     const response = await axios.get('/list_movies.json' + query, axiosConfig)
-    console.log(query)
     res.json(response.data)
 }

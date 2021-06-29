@@ -12,12 +12,12 @@ const About = () => {
                 <h3>Used stack of technologies and API</h3>
             </div>
             <div className="row my-5">
-                <div className="col-2">
+                <div className="text-center my-3 col-md-12 col-lg-2">
                     <a href="https://nextjs.org/">
                         <Image src="/nextjs-logo.png" width={200} height={200}/>
                     </a>
                 </div>
-                <div className="col-10 my-auto">
+                <div className="col-md-12 col-lg-10 my-auto">
                     <h2><a href="https://nextjs.org/">Next.js</a></h2>
                     <p>Next.js is an open-source React front-end development web framework created by Vercel that enables functionality such as server-side rendering and generating static websites for React based web applications. 
                         It is a production-ready framework that allows developers to quickly create static and dynamic JAMstack websites and is used widely by many large companies. 
@@ -27,7 +27,12 @@ const About = () => {
                 </div>
             </div>
             <div className="row my-5">
-                <div className="col-10 my-auto text-end">
+            <div className="text-center my-3 col-md-12 col-lg-2 d-md-block d-lg-none">
+                    <a href="https://getbootstrap.com/">
+                        <Image src="/bootstrap-logo.png" width={200} height={200}/>
+                    </a>
+                </div>
+                <div className="col-md-12 col-lg-10 my-auto text-end">
                     <h2><a href="https://getbootstrap.com/">Bootstrap 5</a></h2>
                     <p>Bootstrap is a free and open-source CSS framework directed at responsive, mobile-first front-end web development. 
                         It contains CSS- and (optionally) JavaScript-based design templates for typography, forms, buttons, navigation, and other interface components.
@@ -35,19 +40,19 @@ const About = () => {
                         Vue.js framework, React library, TensorFlow and others.
                     </p>
                 </div>
-                <div className="col-2">
+                <div className="text-center my-3 col-md-12 col-lg-2 d-none d-lg-block">
                     <a href="https://getbootstrap.com/">
                         <Image src="/bootstrap-logo.png" width={200} height={200}/>
                     </a>
                 </div>
             </div>
             <div className="row my-5">
-                <div className="col-2">
+                <div className="text-center my-3 col-md-12 col-lg-2">
                     <a href="https://yts.mx">
                         <Image src="/yts-logo.png" width={200} height={200}/>
                     </a>
                 </div>
-                <div className="col-10 my-auto">
+                <div className="col-sm-12 col-lg-10 my-auto">
                     <h2><a href="https://yts.mx">YTS API</a></h2>
                     <p>YIFY Torrents or YTS was a peer-to-peer release group known for distributing large numbers of movies as free downloads through BitTorrent. 
                         YIFY releases were characterised through their consistent HD video quality in a small file size, which attracted many downloaders.

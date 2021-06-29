@@ -46,8 +46,8 @@ const Index = (props) => {
   const loadMovies = async (query_term, quality, genre, page) => {
     setLoading(true)
     const res = await getMovies({query_term, genre, quality, page})
+    setLoading(false)
     if (res && res.data) {
-      setLoading(false)
       setLastPage(Math.ceil(res.data.data.movie_count / 20))
       setCurrentPage(res.data.data.page_number)
       setMovies(res.data.data.movies)
