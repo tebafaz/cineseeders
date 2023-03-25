@@ -58,13 +58,11 @@ const Movie = ({movie, relateds}) => {
                 {relateds !== undefined ? relateds.map((related) => 
                     <div key={related.id} className="col-sm-12 col-md-6 col-lg-4 col-xl-3 text-center mt-4 mb-4">
                         <Link href="/movies/[id]" as={`/movies/${related.id}`}>
-                            <a>
                                 <img width="230" height="345" className="image-hov" src={related.medium_cover_image} alt={related.title} />
                                 <p className="transition h6">
                                     {related.title}<br/>
                                     {related.year} - {related.language}
                                 </p>
-                            </a>
                         </Link>
                     </div>
                 ) : ''}

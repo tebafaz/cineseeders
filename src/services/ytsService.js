@@ -1,11 +1,6 @@
 import axios from 'axios'
 import {axiosGetCancellable} from '../helpers/axios.helper'
 
-
-const axiosConfig = {
-    baseURL: 'https://yts.mx/api/v2/'
-}
-
 function getMovies(filmFilter) {
     let query = '?' + Object.keys(filmFilter).map((key) => {
         if (filmFilter[key] != '' && filmFilter[key] != ' ') {

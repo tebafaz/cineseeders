@@ -5,7 +5,7 @@ const About = () => {
         <div className="container floralwhite-text">
             <div className="row">
                 <h1>Made by Tebafaz</h1>
-                <h4>Source code <a href="https://github.com/Tebafaz/nextjs-movie">here</a></h4>
+                <h4>Source code <a href="https://github.com/tebafaz/nextjs-movie">here</a></h4>
                 <p>Email: <a href="mailto:tebafaz@gmail.com">tebafaz@gmail.com</a></p>
             </div>
             <div className="row text-center my-5">
@@ -21,7 +21,7 @@ const About = () => {
                     <h2><a href="https://nextjs.org/">Next.js</a></h2>
                     <p>Next.js is an open-source React front-end development web framework created by Vercel that enables functionality such as server-side rendering and generating static websites for React based web applications. 
                         It is a production-ready framework that allows developers to quickly create static and dynamic JAMstack websites and is used widely by many large companies. 
-                        Next.js is one of several recommended "toolchains" available when starting a new React app, all of which provide a layer of abstraction to aid in common tasks. 
+                        Next.js is one of several recommended toolchains available when starting a new React app, all of which provide a layer of abstraction to aid in common tasks. 
                         Traditional React apps render all their content in the client-side browser, Next.js is used to extend this functionality to include applications rendered on the server side.
                     </p>
                 </div>
