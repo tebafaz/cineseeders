@@ -9,9 +9,7 @@ const Footer = () => {
             <div className="row">
                 <div className="col-12 col-md-6 text-center">
                     <Link href="/">
-                        <a>
                             Home
-                        </a>
                     </Link>
                     <p>
                         Homepage is where you can search and find a movie you want to watch
@@ -19,9 +17,7 @@ const Footer = () => {
                 </div>
                 <div className="col-12 col-md-6 text-center">
                 <Link href="/about">
-                        <a>
                             About
-                        </a>
                     </Link>
                     <p>
                         About page is designed so that you can see authors of all assets in this website
