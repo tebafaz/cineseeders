@@ -8,4 +8,5 @@ function HeadDoc() {
       </Head>
     )
 }
+
 export { HeadDoc }
