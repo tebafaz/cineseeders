@@ -21,8 +21,6 @@ async function axiosGetCancellable(url, config) {
             throw error
         }
     }
-    
-
 }
 
 export {axiosGetCancellable}

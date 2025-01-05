@@ -5,7 +5,7 @@ import Router from 'next/router'
 import axios from 'axios';
 
 
-const Movie = ({movie, relateds}) => {
+const Movie = ({movie, relateds, subtitles}) => {
     const [loading, setLoading] = useState(false)
   useEffect(() => {
     const start = () => {
@@ -44,15 +44,23 @@ const Movie = ({movie, relateds}) => {
                     <p>Languge: {movie.language}</p>
                     <hr/>
                     <p>{movie.description_full}</p>
-                    <div className="d-flex gap">
+                    <div>
                         {movie.torrents !== undefined ? movie.torrents.map((torrent) =>
-                            <Link key={torrent.hash} href={torrent.url}>
-                                <button className="btn btn-outline-warning">Download {torrent.quality} {torrent.type}</button>
+                            <Link key={torrent.hash} href={torrent.url} className=' me-2'>
+                                <button className="btn btn-outline-warning my-1">Download {torrent.quality} {torrent.type}</button>
                             </Link>
                         ) : 'Torrents are not available'}
                     </div>
                 </div>
             </div>
+            <hr />
+            <span className='floralwhite-text'>{subtitles !== null ? 'Download subtitles:': ''}</span>
+            <br />
+                {subtitles !== null ? subtitles.map((sub) =>
+                    <Link key={sub.SubHash} href={sub.ZipDownloadLink} className='me-2'>
+                        <button className="btn btn-outline-warning my-1">{sub.LanguageName}.{sub.SubFormat}</button>
+                    </Link>
+                ) : 'Subs are not available'}
             <hr />
             <div className="row">
                 {relateds !== undefined ? relateds.map((related) => 
@@ -76,13 +84,31 @@ export const getServerSideProps = async ({query}) => {
         axios.get('https://yts.mx/api/v2/movie_details.json?movie_id=' + query.id),
         axios.get('https://yts.mx/api/v2/movie_suggestions.json?movie_id=' + query.id)
     ])
-    return {
-        props: {
-            movie: details.data.data.movie,
-            relateds: relateds.data.data.movies
+    const subtitles = await axios.get('https://rest.opensubtitles.org/search/imdbid-' + details.data.data.movie.imdb_code.replace('tt',''), { headers: { 'X-User-Agent': 'TemporaryUserAgent', 'User-Agent': 'TemporaryUserAgent' }, validateStatus: (httpStatus) => true })
+    if (subtitles.status >= 400) {
+        console.log("opensubtitles error:", subtitles.data, subtitles.status)
+        return {
+            props: {
+                movie: details.data.data.movie,
+                relateds: relateds.data.data.movies,
+                subtitles: null
+            }
         }
     }
-  }
 
+    if (subtitles !== undefined) {
+        subtitles.data = subtitles.data.filter((value) => value.SubFormat == 'srt')
+        const subtitlesUniq = Array.from(
+            new Map(subtitles.data.map(item => [item.LanguageName, item])).values()
+        )
+        return {
+            props: {
+                movie: details.data.data.movie,
+                relateds: relateds.data.data.movies,
+                subtitles: subtitlesUniq
+            }
+        }
+    }
+}
 
 export default Movie;
