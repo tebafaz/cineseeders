@@ -84,7 +84,7 @@ export const getServerSideProps = async ({query}) => {
         axios.get('https://yts.mx/api/v2/movie_details.json?movie_id=' + query.id),
         axios.get('https://yts.mx/api/v2/movie_suggestions.json?movie_id=' + query.id)
     ])
-    const subtitles = await axios.get('https://rest.opensubtitles.org/search/imdbid-' + details.data.data.movie.imdb_code.replace('tt',''), { headers: { 'X-User-Agent': 'TemporaryUserAgent', 'User-Agent': 'TemporaryUserAgent' }, validateStatus: (httpStatus) => true })
+    const subtitles = await axios.get('https://rest.opensubtitles.org/search/imdbid-' + details.data.data.movie.imdb_code.replace('tt',''), { headers: { 'X-User-Agent': 'TemporaryUserAgent', 'User-Agent': 'TemporaryUserAgent' }, validateStatus: () => true })
     if (subtitles.status >= 400) {
         console.log("opensubtitles error:", subtitles.data, subtitles.status)
         return {
