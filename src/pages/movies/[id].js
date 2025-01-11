@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import Router from 'next/router'
+import Router from 'next/router';
 import axios from 'axios';
-
+import TRACKERS from '../../constants/trackers';
 
 const Movie = ({movie, relateds, subtitles}) => {
     const [loading, setLoading] = useState(false)
@@ -33,34 +33,44 @@ const Movie = ({movie, relateds, subtitles}) => {
         <div className="container">
             <div className="row">
                 <div className="col-md-4 text-center">
-                    <img width="300" height="450" className="img-fluid" src={movie.large_cover_image} alt={movie.title}/>
+                    <img width="300" height="450" className="img-fluid mb-5" src={movie.large_cover_image} alt={movie.title}/>
                 </div>
                 <div className="col-md-8 floralwhite-text">
                     <p className="big-text">{movie.title}</p>
                     <hr/>
                     <p>{movie.year} - {movie.runtime/60 > 0 ? `${Math.floor(movie.runtime/60)} h`: ``} {movie.runtime % 60} m</p>
-                    <p>Genre: {movie.genres.map((genre) => `${genre} `)}</p>
-                    <p>Downloaded: {movie.download_count} times</p>
+                    <p>Genre: {movie.genres.join(", ")}</p>
                     <p>Languge: {movie.language}</p>
                     <hr/>
                     <p>{movie.description_full}</p>
-                    <div>
-                        {movie.torrents !== undefined ? movie.torrents.map((torrent) =>
-                            <Link key={torrent.hash} href={torrent.url} className=' me-2'>
-                                <button className="btn btn-outline-warning my-1">Download {torrent.quality} {torrent.type}</button>
-                            </Link>
-                        ) : 'Torrents are not available'}
+                    <hr />
+                    <span className='floralwhite-text mb-5'>Available in:</span>
+                    <div className='row'>
+                        {movie.torrents !== undefined ? movie.torrents.map(torrent => 
+                            <div key={torrent.hash} className="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
+                                <Link href={torrent.url}>
+                                    <button className="btn btn-outline-warning" style={{width: "200px"}}>{torrent.quality}.{torrent.video_codec}.{torrent.bit_depth}bit {torrent.type}</button>
+                                </Link>
+                                <Link href={torrent.magnetLink}>
+                                    <button className="btn btn-outline-info my-1">magnet</button>
+                                </Link>
+                            </div>
+                        ) : <span>Torrents are not available</span>}
                     </div>
                 </div>
             </div>
             <hr />
-            <span className='floralwhite-text'>{subtitles !== null ? 'Download subtitles:': ''}</span>
+            <span className='floralwhite-text'>Download subtitles:</span>
             <br />
+            <div className='row'>
                 {subtitles !== null ? subtitles.map((sub) =>
-                    <Link key={sub.SubHash} href={sub.ZipDownloadLink} className='me-2'>
-                        <button className="btn btn-outline-warning my-1">{sub.LanguageName}.{sub.SubFormat}</button>
-                    </Link>
-                ) : 'Subs are not available'}
+                    <div key={sub.SubHash} className="col-sm-6 col-md-4 col-lg-3 col-xl-2 text-center">
+                        <Link href={sub.ZipDownloadLink} className='me-2'>
+                            <button className="btn btn-outline-warning my-1">{sub.LanguageName}.{sub.SubFormat}</button>
+                        </Link>
+                    </div>
+                ) : <span>Subtitles are not available</span>}
+                </div>
             <hr />
             <div className="row">
                 {relateds !== undefined ? relateds.map((related) => 
@@ -84,8 +94,13 @@ export const getServerSideProps = async ({query}) => {
         axios.get('https://yts.mx/api/v2/movie_details.json?movie_id=' + query.id),
         axios.get('https://yts.mx/api/v2/movie_suggestions.json?movie_id=' + query.id)
     ])
+    const trackersList = TRACKERS.map(tracker => `&tr=${encodeURIComponent(tracker)}`).join("")
+    details.data.data.movie.torrents.map((torrent) =>{
+        torrent.magnetLink = `magnet:?xt=urn:btih:${torrent.hash}&dn=${encodeURIComponent(`${details.data.data.movie.title_long} [${torrent.quality}] [YTS.MX]`)}${trackersList}`
+    })
     const subtitles = await axios.get('https://rest.opensubtitles.org/search/imdbid-' + details.data.data.movie.imdb_code.replace('tt',''), { headers: { 'X-User-Agent': 'TemporaryUserAgent', 'User-Agent': 'TemporaryUserAgent' }, validateStatus: () => true })
-    if (subtitles.status >= 400) {
+    const contentTypeRegex = new RegExp('.*text/html.*')
+    if (subtitles.status >= 400 || contentTypeRegex.test(subtitles.headers.get("content-type")) || subtitles.data.length === 0) {
         console.log("opensubtitles error:", subtitles.data, subtitles.status)
         return {
             props: {
@@ -98,6 +113,7 @@ export const getServerSideProps = async ({query}) => {
 
     if (subtitles !== undefined) {
         subtitles.data = subtitles.data.filter((value) => value.SubFormat == 'srt')
+        subtitles.data.sort((x, y) => x.LanguageName.localeCompare(y.LanguageName))
         const subtitlesUniq = Array.from(
             new Map(subtitles.data.map(item => [item.LanguageName, item])).values()
         )

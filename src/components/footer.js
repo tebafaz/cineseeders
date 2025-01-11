@@ -26,15 +26,22 @@ const Footer = () => {
             </div>
             <br/>
             <div className="row">
-            <div className="offset-5 col-2 text-center">
+            <div className="offset-2 col-2 text-center">
                     <a href="https://yts.mx/">
                         <Image src="/logo-YTS.svg" width={127} height={40}/>
                         <p>
-                        Made using YTS API
+                            Movies from YTS.mx
                         </p>
-                            
-                        </a>
-                </div>
+                    </a>
+            </div>
+            <div className="offset-4 col-2 text-center">
+                    <a href="https://opensubtitles.org">
+                        <Image src="/logo-open-subtitles.png" width={127} height={40}/>
+                        <p>
+                            Subtitles from opensubtitles.org
+                        </p>
+                    </a>
+            </div>
             </div>
             <div className="text-center mt-2">
                 <p>All rights are reserved to their respective owners</p>
