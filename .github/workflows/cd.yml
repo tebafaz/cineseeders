@@ -43,6 +43,6 @@ jobs:
             docker pull ghcr.io/${{ github.repository }}:${{ github.sha }}
             docker stop cineseeders
             docker rm cineseeders
-            docker run --name cineseeders -p ${{ secrets.DOCKER_PORT }}:3000 \
+            docker run --name cineseeders \
               --network custom-bridge \
               --restart always -d ghcr.io/${{ github.repository }}:${{ github.sha }}
